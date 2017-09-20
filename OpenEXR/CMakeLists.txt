@@ -36,6 +36,7 @@ OPTION (BUILD_TESTS	     "Build tests" OFF)
 OPTION (BUILD_UTILITIES      "Build OpenEXR utilities" OFF)
 OPTION (BUILD_EXAMPLES       "Build examples" OFF)
 OPTION (INSTALL_DOCS	     "Install documentation" OFF)
+OPTION (ZLIB_PKGFIND 	     "Use find_package for zlib" OFF)
 
 # Setup osx rpathing
 SET (CMAKE_MACOSX_RPATH 1)
@@ -54,7 +55,9 @@ INCLUDE_DIRECTORIES (
   IlmImfFuzzTest
 )
 
-FIND_PACKAGE(ZLIB REQUIRED)
+IF (ZLIB_PKGFIND)
+  FIND_PACKAGE(ZLIB REQUIRED)
+ENDIF ()
 INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
 
 IF (NOT WIN32)
