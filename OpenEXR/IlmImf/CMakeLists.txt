@@ -2,39 +2,47 @@
 
 SET(CMAKE_INCLUDE_CURRENT_DIR 1)
 
-ADD_EXECUTABLE ( b44ExpLogTable
-  b44ExpLogTable.cpp
-)
+IF (NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/b44ExpLogTable.h")
+  ADD_EXECUTABLE ( b44ExpLogTable
+    b44ExpLogTable.cpp
+  )
 
-TARGET_LINK_LIBRARIES ( b44ExpLogTable
-  Half
-  IlmThread${ILMBASE_LIBSUFFIX}
-  Iex${ILMBASE_LIBSUFFIX}
-  ${PTHREAD_LIB}
-)
+  TARGET_LINK_LIBRARIES ( b44ExpLogTable
+    Half
+    IlmThread${ILMBASE_LIBSUFFIX}
+    Iex${ILMBASE_LIBSUFFIX}
+    ${PTHREAD_LIB}
+  )
 
-ADD_CUSTOM_COMMAND (
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/b44ExpLogTable.h
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/b44ExpLogTable > ${CMAKE_CURRENT_BINARY_DIR}/b44ExpLogTable.h
-  DEPENDS b44ExpLogTable
-)
+  ADD_CUSTOM_COMMAND (
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/b44ExpLogTable.h
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/b44ExpLogTable > ${CMAKE_CURRENT_BINARY_DIR}/b44ExpLogTable.h
+    DEPENDS b44ExpLogTable
+  )
+ELSE ()
+  message(STATUS "Skipping build of b44ExpLogTable.h")
+ENDIF ()
 
-ADD_EXECUTABLE ( dwaLookups
-  dwaLookups.cpp
-)
+IF (NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/dwaLookups.h")
+  ADD_EXECUTABLE ( dwaLookups
+    dwaLookups.cpp
+  )
+  
+  TARGET_LINK_LIBRARIES ( dwaLookups
+    Half
+    IlmThread${ILMBASE_LIBSUFFIX}
+    Iex${ILMBASE_LIBSUFFIX}
+    ${PTHREAD_LIB}
+  )
 
-TARGET_LINK_LIBRARIES ( dwaLookups
-  Half
-  IlmThread${ILMBASE_LIBSUFFIX}
-  Iex${ILMBASE_LIBSUFFIX}
-  ${PTHREAD_LIB}
-)
-
-ADD_CUSTOM_COMMAND (
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/dwaLookups.h
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dwaLookups > ${CMAKE_CURRENT_BINARY_DIR}/dwaLookups.h
-  DEPENDS dwaLookups
-)
+  ADD_CUSTOM_COMMAND (
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/dwaLookups.h
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dwaLookups > ${CMAKE_CURRENT_BINARY_DIR}/dwaLookups.h
+    DEPENDS dwaLookups
+  )
+ELSE ()
+  message(STATUS "Skipping build of dwaLookups.h")
+ENDIF ()
 
 SET ( ILMIMF_SRCS
   ImfAttribute.cpp
